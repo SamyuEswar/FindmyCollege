@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Mint + Blue Design Tokens ─────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-base:       #f0fffe;   /* near-white mint page bg */
+  --bg-surface:    #ddf6f4;   /* card surfaces */
+  --bg-elevated:   #ccf2f0;   /* inputs, badges, inner surfaces */
+  --bg-hover:      #b8ebe8;   /* hover state */
+
+  /* Mint accent scale */
+  --mint-light:    #a8edea;
+  --mint-mid:      #7dd8d4;
+  --mint-deep:     #4ecdc4;
+
+  /* Blue accent scale */
+  --blue-light:    #7ac4fb;
+  --blue-mid:      #4a90d9;   /* primary buttons/links */
+  --blue-deep:     #1e6fa8;   /* hover, headings */
+
+  /* Text */
+  --text-primary:  #0d3b4a;   /* dark teal-navy */
+  --text-secondary:#1a5f7a;   /* medium teal */
+  --text-muted:    #4a8fa6;   /* muted */
+  --text-faint:    #8abccd;   /* placeholder / de-emphasised */
+
+  /* Borders */
+  --border-light:  rgba(168, 237, 234, 0.55);
+  --border-mid:    rgba(74,  144, 217, 0.35);
+  --border-strong: rgba(74,  144, 217, 0.60);
+
+  /* Shadows */
+  --shadow-card:   0 2px 16px rgba(74, 144, 217, 0.12);
+  --shadow-hover:  0 8px 32px rgba(74, 144, 217, 0.22);
+
+  /* CSS vars for body */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgba(168, 237, 234, 0.55);
+    color: var(--text-primary);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar         { width: 7px; height: 7px; }
+  ::-webkit-scrollbar-track   { background: var(--bg-base); }
+  ::-webkit-scrollbar-thumb   { background: var(--mint-mid); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue-mid); }
+}
+
+/* ─── Component Classes ──────────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Card ── */
+  .pal-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  }
+  .pal-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--border-mid);
+    transform: translateY(-3px);
+  }
+
+  /* ── Glass ── */
+  .pal-glass {
+    background: rgba(240, 255, 254, 0.85);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    border: 1px solid var(--border-light);
+  }
+
+  /* ── Input ── */
+  .pal-input {
+    background: rgba(240, 255, 254, 0.80);
+    border: 1.5px solid var(--border-light);
+    border-radius: 0.875rem;
+    color: var(--text-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pal-input::placeholder { color: var(--text-faint); }
+  .pal-input:focus {
+    outline: none;
+    border-color: var(--blue-mid);
+    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.18);
+  }
+
+  /* ── Primary Button (Blue) ── */
+  .pal-btn-primary {
+    background: linear-gradient(135deg, #4a90d9 0%, #1e6fa8 100%);
+    color: #ffffff;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.875rem;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 10px rgba(74, 144, 217, 0.35);
+  }
+  .pal-btn-primary:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(74, 144, 217, 0.40);
+  }
+
+  /* ── Ghost Button ── */
+  .pal-btn-ghost {
+    background: transparent;
+    border: 1.5px solid var(--border-mid);
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-radius: 0.875rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .pal-btn-ghost:hover {
+    background: var(--bg-elevated);
+    border-color: var(--blue-mid);
+    color: var(--text-primary);
+  }
+
+  /* ── Badge ── */
+  .pal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(168, 237, 234, 0.40);
+    color: var(--text-secondary);
+    border: 1px solid rgba(168, 237, 234, 0.70);
+    border-radius: 999px;
+    padding: 3px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* ── Gradient text (mint → blue) ── */
+  .gradient-text {
+    background: linear-gradient(135deg, #4ecdc4 0%, #4a90d9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ── Skeleton shimmer ── */
+  .skeleton {
+    background: linear-gradient(90deg, #ddf6f4 25%, #ccf2f0 50%, #ddf6f4 75%);
+    background-size: 400px 100%;
+    animation: shimmer 1.4s infinite linear;
+    border-radius: 1rem;
+  }
+
+  /* ── Nav link (server-component safe hover) ── */
+  .nav-link {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .nav-link:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+
+  /* ── Glow blob ── */
+  .glow-blob {
+    border-radius: 9999px;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(1deg); }
+  66%       { transform: translateY(-5px) rotate(-1deg); }
+}
+@keyframes pulseMint {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+.animate-fade-up { animation: fadeSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-float   { animation: float 5s ease-in-out infinite; }
+.animate-pulse-mint { animation: pulseMint 2s ease-in-out infinite; }

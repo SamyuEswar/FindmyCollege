@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model College {
+  id          Int         @id @default(autoincrement())
+  name        String
+  location    String
+  state       String
+  fees        Float
+  rating      Float
+  courses     Course[]
+  placements  Placement[]
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  name        String
+  duration    String   
+  
+  collegeId   Int
+  college     College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Placement {
+  id                  Int      @id @default(autoincrement())
+  averagePackage      Float    
+  placementPercentage Float
+  
+  collegeId           Int
+  college             College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
