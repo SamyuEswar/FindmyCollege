@@ -23,20 +23,20 @@ You can view the fully working live application here:
 This project was built using a robust, modern tech stack:
 
 ### Frontend
-- **Framework:** [Next.js (React)]
-- **Styling:** Vanilla CSS & [Tailwind CSS]
-- **Icons:** [Lucide React]
-- **Hosting:** [Vercel]
+- **Framework:** Next.js (React)
+- **Styling:** Vanilla CSS & Tailwind CSS
+- **Icons:** Lucide React
+- **Hosting:** Vercel
 
 ### Backend
-- **Environment:** [Node.js] & [Express.js]
-- **ORM:** [Prisma] (for strict type-safe database interactions)
+- **Environment:** Node.js & Express.js
+- **ORM:** Prisma (for strict type-safe database interactions)
 - **Language:** TypeScript
-- **Hosting:** [Render]
+- **Hosting:** Render
 
 ### Database
 - **Database Engine:** PostgreSQL
-- **Hosting:** [Supabase]
+- **Hosting:** Supabase
 
 ---
 
@@ -93,6 +93,3 @@ npm run dev
 The app will now be running at `http://localhost:3000`!
 
 ---
-
-## 📝 License
-This project was built for educational and portfolio purposes. Feel free to explore the code!
