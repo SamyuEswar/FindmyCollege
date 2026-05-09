@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { compareColleges } from '@/services/api';
 import { ArrowLeft, Star, IndianRupee, Briefcase, MapPin, Trophy } from 'lucide-react';
 import Link from 'next/link';
 
-export default function ComparePage() {
+function CompareContent() {
   const searchParams = useSearchParams();
   const idsParam = searchParams.get('ids');
   const [colleges, setColleges] = useState<any[]>([]);
@@ -105,7 +105,6 @@ export default function ComparePage() {
 
   return (
     <div className="animate-fade-up max-w-6xl mx-auto space-y-8">
-
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <Link href="/">
@@ -176,5 +175,13 @@ export default function ComparePage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function ComparePage() {
+  return (
+    <Suspense fallback={<div className="py-32 text-center text-sm font-semibold" style={{ color: 'var(--text-muted)' }}>Loading...</div>}>
+      <CompareContent />
+    </Suspense>
   );
 }
