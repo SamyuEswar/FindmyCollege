@@ -219,35 +219,44 @@ const colleges = [
 
 async function main() {
   console.log('Start seeding real Indian college data...');
-  
+
   await prisma.placement.deleteMany();
   await prisma.course.deleteMany();
   await prisma.college.deleteMany();
 
-  for (const c of colleges) {
-    const college = await prisma.college.create({
-      data: {
-        name: c.name,
-        location: c.location,
-        state: c.state,
-        fees: c.fees,
-        rating: c.rating,
-        courses: {
-          create: [
-            { name: "Computer Science and Engineering", duration: "4 Years" },
-            { name: "Electronics and Communication", duration: "4 Years" },
-            { name: "Mechanical Engineering", duration: "4 Years" }
-          ]
-        },
-        placements: {
-          create: [
-            { averagePackage: c.avgPackage, placementPercentage: c.placement }
-          ]
+  const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  const batchSize = 10;
+
+  for (let i = 0; i < colleges.length; i += batchSize) {
+    const batch = colleges.slice(i, i + batchSize);
+    for (const c of batch) {
+      const college = await prisma.college.create({
+        data: {
+          name: c.name,
+          location: c.location,
+          state: c.state,
+          fees: c.fees,
+          rating: c.rating,
+          courses: {
+            create: [
+              { name: "Computer Science and Engineering", duration: "4 Years" },
+              { name: "Electronics and Communication", duration: "4 Years" },
+              { name: "Mechanical Engineering", duration: "4 Years" }
+            ]
+          },
+          placements: {
+            create: [
+              { averagePackage: c.avgPackage, placementPercentage: c.placement }
+            ]
+          }
         }
-      }
-    });
-    console.log(`Created college: ${college.name}`);
+      });
+      console.log(`Created college: ${college.name}`);
+    }
+    console.log(`✔ Batch ${Math.floor(i / batchSize) + 1} done — waiting 500ms...`);
+    await delay(500);
   }
+
   console.log('Seeding finished.');
 }
 
